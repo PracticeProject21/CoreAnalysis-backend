@@ -1,0 +1,3 @@
+[submodule "CoreAnalysis-ML"]
+	path = CoreAnalysis-ML
+	url = https://github.com/PracticeProject21/CoreAnalysis-ML.git
