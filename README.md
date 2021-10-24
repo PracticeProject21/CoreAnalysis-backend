@@ -1,7 +1,7 @@
 # CoreAnalysis-backend
 Backend-часть проекта. 
 
-## Запуск
+## Get started
 ```shell
 pip install virtualenv
 python -m venv .env
@@ -10,3 +10,13 @@ pip install -r requirements.txt
 export FLASK_APP=backend
 flask run
 ```
+
+## Methods
+**POST** `/api/report/`
+
+Загрузка файла на сервер и получение отчёта по нему
+
+*Input*: file
+
+*Output*: JSON:
+* `filename`: String
