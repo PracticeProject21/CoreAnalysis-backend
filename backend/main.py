@@ -3,11 +3,12 @@ import os
 from flask import Flask
 
 from backend.core_api import api
-
+from flask_cors import CORS
 
 def create_app():
     app = Flask(__name__)
-
+    # доступ ко всем эндпоинтам??
+    CORS(app)
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     @app.route('/')
