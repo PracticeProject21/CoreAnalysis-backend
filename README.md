@@ -11,6 +11,11 @@ export FLASK_APP=backend
 flask run
 ```
 
+## Run tests
+```shell
+python -m pytest tests/
+```
+
 ## Methods
 **POST** `/api/report/`
 
