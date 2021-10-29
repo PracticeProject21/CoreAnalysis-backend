@@ -1,0 +1,95 @@
+name: segment_value
+title: Тип сегмента
+values:
+  - name: ultraviolet
+    title: Ультрафиолет
+    nested:
+      name: glow
+      title: Свечение
+      values:
+        - name: lack
+          title: Отсутствует
+        - name: carbonate
+          title: Карбонатное
+          nested:
+            name: type
+            title: Тип
+            values:
+              - name: lime
+                title: Известковый
+              - name: calcareous
+                title: Известковистый
+        - name: satureted
+          title: Насыщенное
+          nested:
+            - name: intensity
+              title: Интенсивность
+              values:
+                - name: strong
+                  title: Сильное
+                - name: medium
+                  title: Среднее
+                - name: weak
+                  title: Слабое
+  - name: sun
+    title: Дневной свет
+    nested:
+      - name: destruction
+        title: Разрушенность
+        values:
+          - name: fault
+            title: Разлом
+          - name: content
+            title: Проба
+      - name: formation
+        title: Порода
+        values:
+          - name: interleaving
+            title: Переслаивание
+            nested:
+              - name: composition
+                title: Состав
+                values:
+                  - TOTOTOTOTOTTODODODODODODOD
+          - name: sandstoneик
+            title: Песчанник
+          - name: clay_sandstone
+            title: Песчанник глинистый
+          - name: siltstone
+            title: Алевролит
+          - name: clay_silstone
+            title: Алевролит глинистый
+          - name: argillite
+            title: Аргиллит
+          - name: clay
+            title: Глина
+          - name: argillite_clay
+            title: Глина аргеллитообразная
+          - name: carbon_argellite
+            title: Аргиллит углистый
+          - name: Coal
+            title: Уголь
+          - name: limestone
+            title: Известняк
+          - name: carbonate_rock
+            title: Карбонатная порода
+          - name: dolomite
+            title: Доломит
+          - name: conglomerate
+            title: Конгломерат
+          - name: foundation
+            title: Фундамент
+          - name: gravel
+            title: Гравелит
+          - name: breccia
+            title: Брекчия
+          - name: clay_silicon_rock
+            title: Глинисто-кремнивая порода
+          - name: silicon_clay_rock
+            title: Кремнисто-глинистая порода
+          - name: silicon_rock
+            title: Кремнистая порода
+          - name: sand
+            title: Песок
+          - name: aleurite
+            title: Алеврит
