@@ -11,6 +11,12 @@ def create_app():
     CORS(app)
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
+    @app.after_request
+    def apply_caching(response):
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
+
     @app.route('/')
     def hello():
         return '''
