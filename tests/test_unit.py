@@ -1,5 +1,7 @@
+import pytest
+
 from fixtures import *
-from backend.core_api.fields_control import go_next_level
+from backend.core_api.fields_control import go_next_level, EndOfTree, InvalidFormat
 
 from typing import List, Dict
 
@@ -86,6 +88,21 @@ def test_go_next_level(source: List[Dict], params: Dict, answer: List):
 
 
 def test_wrong_go_next_level():
-    with pytest.raises(Exception):
+    with pytest.raises(EndOfTree):
         go_next_level([{"name": "foo", "title": "FOO", "values":
                              [{"name": "ans_one", "title": "Answer"}]}], {"bar": "ans_one"})
+
+    with pytest.raises(InvalidFormat):
+        go_next_level([{"name": "foo", "title": "FOO", "values":
+                             [{"name": "ans_one", "title": "Answer"}]}], {"foo": "ans_two"})
+
+    with pytest.raises(InvalidFormat):
+        go_next_level([{"name": "foo", "title": "FOO"}], {"foo": "ans_two"})
+
+    with pytest.raises(InvalidFormat):
+        go_next_level([{"names": "foo", "title": "FOO", "values":
+                             [{"name": "ans_one", "title": "Answer"}]}], {"foo": "ans_one"})
+
+    with pytest.raises(InvalidFormat):
+        go_next_level([{"name": "foo", "title": "FOO", "values":
+                             [{"names": "ans_one", "title": "Answer"}]}], {"foo": "ans_one"})
