@@ -25,3 +25,6 @@ python -m pytest tests/
 
 *Output*: JSON:
 * `filename`: String
+
+## API
+[API](https://github.com/PracticeProject21/CoreAnalysis-backend/wiki/API)

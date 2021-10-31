@@ -25,6 +25,11 @@ def create_app():
     <h1>Upload new File</h1>
     <form action="/api/report/" method=post enctype=multipart/form-data>
       <p><input type=file name=file>
+        <select name=type>
+            <option value=sun>ДС</option>
+            <option value=ultraviolet>УФ</option>
+
+        </select>
          <input type=submit value=Upload>
     </form>
     '''
