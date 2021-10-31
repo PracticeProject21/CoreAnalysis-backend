@@ -5,13 +5,13 @@ api = Blueprint('core_api', __name__)
 
 @api.route('/report/', methods=['POST'])
 def get_report():
+    print(request.values.to_dict())
     photo_type = request.values.get('type')
     if photo_type not in ('sun', 'ultraviolet'):
         return {
             "message": "type must be 'sun' or 'ultraviolet'"
         }, 400
-    file = request.files['file']
-    if not file:
+    if not request.data:
         return {
             "message": "file is required"
         }, 400
