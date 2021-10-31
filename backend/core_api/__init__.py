@@ -36,8 +36,8 @@ def get_report():
                                     }
                             },
                             {
-                                "name": "formation_type",
-                                "title": "Тип",
+                                "name": "formation_kind",
+                                "title": "Вид",
                                 "value":
                                     {
                                         "name": "sandstone",
@@ -62,8 +62,8 @@ def get_report():
                                     }
                             },
                             {
-                                "name": "destruction_type",
-                                "title": "Тип",
+                                "name": "destr_kind",
+                                "title": "Вид",
                                 "value":
                                     {
                                         "name": "fault",
