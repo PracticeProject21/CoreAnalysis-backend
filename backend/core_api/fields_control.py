@@ -80,3 +80,7 @@ def get_current_properties(config: List[Dict], params: Dict) -> List[Dict]:
             current_level = go_next_level(current_level, params)
         except EndOfTree:
             return properties
+
+
+def get_properties(params: Dict) -> List[Dict]:
+    return get_current_properties(config, params)
