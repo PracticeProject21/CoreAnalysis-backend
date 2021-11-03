@@ -53,3 +53,17 @@ def delete_nested_from_properties(forest: List[Dict]) -> List[Dict]:
         return out
     except KeyError as e:
         raise InvalidFormat('', e.args[0])
+
+
+def delete_mentioned_property(properties: List[Dict], mention: Dict) -> None:
+    """Replace properties in-place"""
+    for name in mention.keys():
+        try:
+            found_id = next(idx for idx, x in enumerate(properties) if x['name'] == name)
+        except StopIteration as e:
+            continue
+        properties.pop(found_id)
+
+
+def get_current_properties(config: List[Dict], **params):
+    pass

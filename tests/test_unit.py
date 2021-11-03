@@ -6,7 +6,7 @@ from backend.core_api.fields_control import (
     get_current_properties,
     delete_nested_from_properties,
     EndOfTree,
-    InvalidFormat
+    InvalidFormat, delete_mentioned_property
 )
 
 from typing import List, Dict
@@ -161,6 +161,17 @@ def test_wrong_go_next_level():
 ])
 def test_delete_nested_from_properties(forest, answer):
     assert delete_nested_from_properties(forest) == answer
+
+
+@pytest.mark.parametrize("properties,mentioned,answer", [
+    (answers[0]['nested'], {"nested_param": "one"}, [answers[0]['nested'][1]]),
+    (answers[0]['nested'], {"nested_param_wrong": "one"}, answers[0]['nested']),
+    ([answers[0]['nested'][1]], {"nested_param_2": "one_nested"}, [])
+
+])
+def test_delete_mentioned_property(properties, mentioned, answer):
+    delete_mentioned_property(properties, mentioned)
+    assert properties == answer
 
 
 @pytest.mark.skip
