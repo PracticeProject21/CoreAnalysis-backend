@@ -10,12 +10,9 @@ class InvalidFormat(Exception):
 class EndOfTree(Exception):
     pass
 
-# with open('fields.yml', 'r') as file:
-#     config = yaml.safe_load(file)
 
-
-def get_current_properties(**params):
-    pass
+with open('fields.yml', 'r') as file:
+    config = yaml.safe_load(file)
 
 
 def go_next_level(source: List[Dict], params: Dict) -> List[Dict]:
@@ -40,3 +37,19 @@ def go_next_level(source: List[Dict], params: Dict) -> List[Dict]:
             return nested
     raise EndOfTree()
 
+
+def delete_nested_from_properties(forest: List[Dict]) -> List[Dict]:
+    out = []
+    try:
+        for tree in forest:
+            out_tree = tree.copy()
+            out_tree['values'] = []
+            for val in tree['values']:
+                out_val = val.copy()
+                if out_val.get('nested'):
+                    del out_val['nested']
+                out_tree['values'].append(out_val)
+            out.append(out_tree)
+        return out
+    except KeyError as e:
+        raise InvalidFormat('', e.args[0])

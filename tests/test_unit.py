@@ -1,7 +1,13 @@
 import pytest
 
 from fixtures import *
-from backend.core_api.fields_control import go_next_level, EndOfTree, InvalidFormat
+from backend.core_api.fields_control import (
+    go_next_level,
+    get_current_properties,
+    delete_nested_from_properties,
+    EndOfTree,
+    InvalidFormat
+)
 
 from typing import List, Dict
 
@@ -26,6 +32,20 @@ answers = [
                     },
                     {
                         "name": "two",
+                        "title": "Two"
+                    }
+                ]
+            },
+            {
+                "name": "nested_param_2",
+                "title": "nested_2_first",
+                "values": [
+                    {
+                        "name": "one_nested",
+                        "title": "One"
+                    },
+                    {
+                        "name": "two_nested",
                         "title": "Two"
                     }
                 ]
@@ -67,6 +87,16 @@ answers = [
                         ]
                     }
                 ]
+            },
+            {
+                "name": "nested_param_3",
+                "title": "nested3",
+                "values": [
+                    {
+                        "name": "one_3",
+                        "title": "One 3"
+                    },
+                ]
             }
         ]
     }
@@ -106,3 +136,52 @@ def test_wrong_go_next_level():
     with pytest.raises(InvalidFormat):
         go_next_level([{"name": "foo", "title": "FOO", "values":
                              [{"names": "ans_one", "title": "Answer"}]}], {"foo": "ans_one"})
+
+
+@pytest.mark.parametrize("forest,answer", [
+        ([query], [
+            {
+                "name": "first_param",
+                "title": "first",
+                "values": [
+                    {
+                        "name": "first_ans",
+                        "title": "FIRST A",
+                    },
+                    {
+                        "name": "second_ans",
+                        "title": "SECOND A",
+                    }
+                ]
+            }
+         ]
+         ),
+    (answers[1]['nested'][0]['values'][1]['nested'], answers[1]['nested'][0]['values'][1]['nested']),
+    ([], [])
+])
+def test_delete_nested_from_properties(forest, answer):
+    assert delete_nested_from_properties(forest) == answer
+
+
+@pytest.mark.skip
+@pytest.mark.parametrize("source,params,answer", (
+        ([query], {"first_param": "first_ans"}, answers[0]['nested']),
+        ([query], {"first_param": "second_ans"},
+         [{
+             "name": "nested_param_2",
+             "title": "nested",
+             "values": [
+                 {
+                     "name": "one_2",
+                     "title": "One 2"
+                 },
+                 {
+                     "name": "two_2",
+                     "title": "Two 2",
+                 }
+            ]
+         }]),
+
+))
+def test_get_properties(source: List[Dict], params: Dict, answer: List):
+    assert get_current_properties(source, **params) == answer
