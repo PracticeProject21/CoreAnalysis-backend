@@ -174,7 +174,6 @@ def test_delete_mentioned_property(properties, mentioned, answer):
     assert properties == answer
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize("source,params,answer", (
         ([query], {"first_param": "first_ans"}, answers[0]['nested']),
         ([query], {"first_param": "second_ans"},
@@ -191,8 +190,62 @@ def test_delete_mentioned_property(properties, mentioned, answer):
                      "title": "Two 2",
                  }
             ]
-         }]),
-
-))
+         },
+             {
+                 "name": "nested_param_3",
+                 "title": "nested3",
+                 "values": [
+                     {
+                         "name": "one_3",
+                         "title": "One 3"
+                     },
+                 ]
+             }
+         ]),
+        ([query], {"first_param": "second_ans", "nested_param_2": "two_2"}, [
+            {
+                 "name": "nested_param_3",
+                 "title": "nested3",
+                 "values": [
+                     {
+                         "name": "one_3",
+                         "title": "One 3"
+                     },
+                 ]
+             },
+            {
+                "name": "nes_nes_param",
+                "title": "Deep param",
+                "values":
+                [
+                    {
+                        "name": "deep_val",
+                        "title": "Deep val",
+                    },
+                    {
+                        "name": "very_deep_val",
+                        "title": "VERY Deep val",
+                    }
+                ]
+            }
+        ]),
+        ([query], {"first_param": "first_ans", "nested_param": "one"}, [
+            {
+                "name": "nested_param_2",
+                "title": "nested_2_first",
+                "values": [
+                    {
+                        "name": "one_nested",
+                        "title": "One"
+                    },
+                    {
+                        "name": "two_nested",
+                        "title": "Two"
+                    }
+                ]
+            }
+        ]),
+        ([{"name": "one", "values": [{"name": "two"}]}], {"one": "two"}, [])
+         ))
 def test_get_properties(source: List[Dict], params: Dict, answer: List):
-    assert get_current_properties(source, **params) == answer
+    assert get_current_properties(source, params) == answer
