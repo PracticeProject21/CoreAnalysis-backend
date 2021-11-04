@@ -9,3 +9,5 @@ threadpoolctl==3.0.0
 flask-cors==3.0.10
 pytest~=6.2.5
 pyyaml
+flask_sqlalchemy
+psycopg2
