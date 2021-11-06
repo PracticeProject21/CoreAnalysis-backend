@@ -1,5 +1,6 @@
 from backend.database import db
 
+
 class Report(db.Model):
     __tablename__ = 'report'
     report_id = db.Column(db.Integer, primary_key=True)

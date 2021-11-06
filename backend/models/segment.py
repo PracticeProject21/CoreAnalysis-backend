@@ -1,5 +1,6 @@
 from backend.database import db
 
+
 class Segment(db.Model):
     __tablename__ = 'segment'
     segment_id = db.Column(db.Integer, primary_key=True)
