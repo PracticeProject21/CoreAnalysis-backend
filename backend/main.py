@@ -8,6 +8,8 @@ from backend.auth.route import auth
 from flask_cors import CORS
 from .database import db
 from .models.user import User
+from .models.report import Report
+from .models.segment import Segment
 
 
 def create_app():
@@ -30,9 +32,14 @@ def create_app():
     login_manager = LoginManager()
     login_manager.init_app(app)
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
+    @login_manager.request_loader
+    def load_user_from_request(request):
+        auth_header = request.headers.get('Authorization')
+        user_id = User.decode_auth_token(auth_header)
+        if isinstance(user_id, str):
+            return None
+        user = User.query.get_or_404(user_id)
+        return user
 
     with app.app_context():
         db.create_all()  # Create sql tables for our data models
