@@ -23,6 +23,7 @@ def admin_required(fun):
 @login_required
 def get_info():
     return {
+        'user_id': current_user.user_id,
         'name': current_user.name,
         'is_admin': current_user.is_admin
     }
@@ -45,6 +46,17 @@ def get_all_users_info():
                 'is_admin': user.is_admin
             })
     return jsonify(out)
+
+
+@auth.route('/<int:user_id>/', methods=['GET'])
+@login_required
+def get_info_by_id(user_id):
+    user = User.query.get_or_404(user_id)
+    return {
+                "user_id": user.user_id,
+                'name': user.name,
+                'is_admin': user.is_admin
+            }
 
 
 @auth.route('/', methods=['POST'])
