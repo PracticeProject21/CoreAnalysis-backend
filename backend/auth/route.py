@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -28,6 +28,25 @@ def get_info():
     }
 
 
+@auth.route('/', methods=['GET'])
+@login_required
+def get_all_users_info():
+    users = User.query
+    if request.values.get('name'):
+        users = users.filter(User.name.like(request.values.get('name') + '%'))
+    if request.values.get('is_admin'):
+        users = users.filter_by(is_admin=bool(request.values.get('is_admin') == 'true'))
+    out = []
+    for user in users.all():
+        out.append(
+            {
+                "user_id": user.user_id,
+                'name': user.name,
+                'is_admin': user.is_admin
+            })
+    return jsonify(out)
+
+
 @auth.route('/', methods=['POST'])
 @admin_required
 def create_user():
@@ -52,7 +71,7 @@ def create_user():
     return '', 201
 
 
-@auth.route('/login/', methods=["POST"])
+@auth.route('/login/', methods=["GET"])
 def login():
     password = request.values.get('password')
     name = request.values.get('name')
