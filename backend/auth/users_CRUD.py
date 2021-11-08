@@ -58,6 +58,37 @@ def get_info_by_id(user_id):
             }
 
 
+@auth.route('/<int:user_id>/', methods=['PATCH'])
+@login_required
+def patch_info_by_id(user_id):
+    User.query.get_or_404(user_id)
+
+    if request.json is None:
+        return {
+                   "message": "Empty body"
+               }, 400
+
+    name = request.json.get('name')
+    password = request.json.get('password')
+    is_admin = request.json.get('is_admin')
+    if is_admin is not None:
+        is_admin = is_admin == 'true'
+
+    props = {}
+    if name is not None:
+        props['name'] = name
+    if password is not None:
+        props['password'] = generate_password_hash(password, method='sha256')
+    if is_admin is not None:
+        props['is_admin'] = is_admin
+
+    if props:
+        db.session.query(User).filter_by(user_id=user_id).update(props)
+    db.session.commit()
+
+    return '', 204
+
+
 @auth.route('/', methods=['POST'])
 @admin_required
 def create_user():
