@@ -49,7 +49,7 @@ def get_all_users_info():
 
 @auth.route('/<int:user_id>/', methods=['GET'])
 @login_required
-def get_info_by_id(user_id):
+def delete_user_by_id(user_id):
     user = User.query.get_or_404(user_id)
     return {
                 "user_id": user.user_id,
@@ -86,6 +86,19 @@ def patch_info_by_id(user_id):
         db.session.query(User).filter_by(user_id=user_id).update(props)
     db.session.commit()
 
+    return '', 204
+
+
+@auth.route('/<int:user_id>/', methods=['DELETE'])
+@login_required
+def get_info_by_id(user_id):
+    if user_id == current_user.user_id:
+        return {
+            "message": "You cannot delete yourself"
+        }, 400
+    User.query.get_or_404(user_id)
+    db.session.query(User).filter_by(user_id=user_id).delete()
+    db.session.commit()
     return '', 204
 
 
