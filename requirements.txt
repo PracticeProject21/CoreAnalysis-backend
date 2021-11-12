@@ -1,5 +1,5 @@
 Flask>=2.0.2
-gunicorn
+gunicorn>=20.1.0
 joblib==1.1.0
 numpy==1.21.2
 Pillow==8.4.0
@@ -9,7 +9,9 @@ threadpoolctl==3.0.0
 flask-cors==3.0.10
 pytest~=6.2.5
 pyyaml~=6.0
-flask_sqlalchemy
-psycopg2
-flask_login
+flask_sqlalchemy>=2.5.1
+psycopg2-binary>=2.9.1
+flask_login>=0.5.0
 Werkzeug~=2.0.2
+torch
+pyjwt
