@@ -17,7 +17,10 @@ def create_app():
     CORS(app)
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     db.init_app(app)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+    database = os.environ.get('DATABASE_URL')
+    if 'DYNO' in os.environ:
+        database = database.replace("://", "ql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = database
 
     @app.after_request
     def apply_caching(response):
