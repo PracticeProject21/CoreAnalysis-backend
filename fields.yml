@@ -1,3 +1,10 @@
+- name: test_fields
+  title: TEsting
+  values:
+    - name: test_1
+      title: test 1
+    - name: test_2
+      title: test 2
 - name: photo_type
   title: Тип фотографии
   values:
@@ -41,7 +48,7 @@
       title: Дневной свет
       nested:
         - name: sun_type
-          titel: Тип
+          title: Тип
           values:
             - name: destruction
               title: Разрушенность
