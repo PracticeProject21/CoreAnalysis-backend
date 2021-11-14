@@ -1,5 +1,4 @@
 from backend.database import db
-from .field import Field
 
 
 class Segment(db.Model):

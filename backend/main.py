@@ -12,7 +12,7 @@ from .models.report import Report
 from .models.segment import Segment
 
 
-def create_app():
+def create_app(**kwargs):
     app = Flask(__name__)
     CORS(app)
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -21,6 +21,10 @@ def create_app():
     if 'DYNO' in os.environ:
         database = database.replace("://", "ql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = database
+    if kwargs.get('DATABASE'):
+        app.config['SQLALCHEMY_DATABASE_URI'] = kwargs.get('DATABASE')
+
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     @app.after_request
     def apply_caching(response):
