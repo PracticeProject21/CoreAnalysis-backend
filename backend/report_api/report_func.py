@@ -91,7 +91,7 @@ def convert_segments_to_json(segments: List[Segment]) -> List[Dict]:
         except IndexError:
             l = 1 - seg.offset
         out['len'] = l
-        out['info'] = convert_segment_info_to_readable_view(seg.info)
+        out['properties'] = convert_segment_info_to_readable_view(seg.info)
         answer.append(out)
     return answer
 
