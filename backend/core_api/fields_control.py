@@ -11,7 +11,7 @@ class EndOfTree(Exception):
     pass
 
 
-with open('fields.yml', 'r') as file:
+with open('fields.yml', 'rb') as file:
     config = yaml.safe_load(file)
 
 
