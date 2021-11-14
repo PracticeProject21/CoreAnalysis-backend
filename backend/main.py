@@ -5,6 +5,7 @@ from flask_login import LoginManager
 
 from backend.core_api import api
 from backend.auth.route import auth
+from backend.report_api import report
 from flask_cors import CORS
 from .database import db
 from .models.user import User
@@ -12,7 +13,7 @@ from .models.report import Report
 from .models.segment import Segment
 
 
-def create_app():
+def create_app(**kwargs):
     app = Flask(__name__)
     CORS(app)
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -21,6 +22,10 @@ def create_app():
     if 'DYNO' in os.environ:
         database = database.replace("://", "ql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = database
+    if kwargs.get('DATABASE'):
+        app.config['SQLALCHEMY_DATABASE_URI'] = kwargs.get('DATABASE')
+
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     @app.after_request
     def apply_caching(response):
@@ -31,6 +36,7 @@ def create_app():
 
     app.register_blueprint(api, url_prefix='/api/')
     app.register_blueprint(auth, url_prefix='/users/')
+    app.register_blueprint(report, url_prefix='/api/')
 
     login_manager = LoginManager()
     login_manager.init_app(app)

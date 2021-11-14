@@ -25,7 +25,7 @@
                             title: Известковый
                           - name: calcareous
                             title: Известковистый
-                    - name: satureted
+                    - name: saturated
                       title: Насыщенное
                       nested:
                         - name: intensity
@@ -41,7 +41,7 @@
       title: Дневной свет
       nested:
         - name: sun_type
-          titel: Тип
+          title: Тип
           values:
             - name: destruction
               title: Разрушенность
