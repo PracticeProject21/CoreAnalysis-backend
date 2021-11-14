@@ -11,7 +11,7 @@ from backend.models.segment import Segment
     ({"photo_type": "sun", "sun_type": "destruction"})
     ])
 def test_create_segment(data, client2):
-    segment = create_segment(data)
+    segment = create_segment(data, 0.1)
     assert segment.info == '{"photo_type": "sun", "sun_type": "destruction"}'
 
 

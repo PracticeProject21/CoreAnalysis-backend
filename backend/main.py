@@ -5,6 +5,7 @@ from flask_login import LoginManager
 
 from backend.core_api import api
 from backend.auth.route import auth
+from backend.report_api import report
 from flask_cors import CORS
 from .database import db
 from .models.user import User
@@ -35,6 +36,7 @@ def create_app(**kwargs):
 
     app.register_blueprint(api, url_prefix='/api/')
     app.register_blueprint(auth, url_prefix='/users/')
+    app.register_blueprint(report, url_prefix='/api/')
 
     login_manager = LoginManager()
     login_manager.init_app(app)

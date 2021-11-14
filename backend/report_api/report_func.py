@@ -5,7 +5,7 @@ from backend.models.user import User
 from backend.models.report import Report
 
 from backend.database import db
-from typing import Dict, List, AnyStr
+from typing import Dict, List, AnyStr, SupportsFloat
 
 from backend.core_api.fields_control import config, delete_mentioned_property
 
@@ -15,9 +15,9 @@ def validate_segment(json: dict) -> dict:
     pass
 
 
-def create_segment(fields: Dict) -> Segment:
+def create_segment(fields: Dict, offset: SupportsFloat) -> Segment:
     json_data = json.dumps(fields)
-    segment = Segment(info=json_data)
+    segment = Segment(info=json_data, offset=offset)
     return segment
 
 
@@ -49,8 +49,8 @@ def find_value(vals, val_name):
     return found_val
 
 
-def convert_segment_to_readable_view(segment: Segment) -> List[Dict]:
-    info = json.loads(segment.info)
+def convert_segment_info_to_readable_view(info: AnyStr) -> List[Dict]:
+    info = json.loads(info)
     source = config
     out_list = list()
     next_sources = []
@@ -79,3 +79,28 @@ def convert_segment_to_readable_view(segment: Segment) -> List[Dict]:
     return out_list
 
 
+def convert_segments_to_json(segments: List[Segment]) -> List[Dict]:
+    answer = []
+    for ind, seg in enumerate(segments):
+        out = {
+            'segment_id': seg.segment_id,
+            'offset': seg.offset,
+        }
+        try:
+            l = segments[ind + 1].offset - seg.offset
+        except IndexError:
+            l = 1 - seg.offset
+        out['len'] = l
+        out['info'] = convert_segment_info_to_readable_view(seg.info)
+        answer.append(out)
+    return answer
+
+
+def convert_report_to_json(report: Report) -> Dict:
+    return {
+        'report_id': report.report_id,
+        'photo_type': report.photo_type,
+        'photo_name': report.photo_name,
+        'photo_url': report.photo_url,
+        'segments': convert_segments_to_json(sorted(report.segments, key=lambda x: float(x.offset)))
+    }
