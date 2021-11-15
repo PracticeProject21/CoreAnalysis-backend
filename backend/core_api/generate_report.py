@@ -24,7 +24,7 @@ val_val = {
 def gen_report(user_id, ph_type):
     ph_type = (ph_type, photo_type[ph_type])
     report = Report(photo_name='0003251d_768a_457d_8465_06198b4094d3',
-                    photo_url='sdsdsdsdsdsdsd',
+                    photo_url='https://i.picsum.photos/id/240/200/1000.jpg?hmac=ptyFF2N6tMTLdjUc497Svv_atTmY_xPRY5qyYkJeXoA',
                     photo_type=ph_type[0], user_id=user_id)
     n = random.randint(3,10)
     for i in range(random.randint(3,10)):
