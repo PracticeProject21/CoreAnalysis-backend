@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 import json
 
 from backend.models.report import Report
-from .report_func import convert_report_to_json
+from .report_func import convert_report_to_json, convert_segments_to_json
 from backend.database import db
 from ..models.segment import Segment
 
@@ -53,3 +53,11 @@ def delete_segment(segment_id):
     db.session.commit()
     return '', 204
 
+
+@report.route('/reports/<int:report_id>/add_segment', methods=['POST'])
+def create_segment(report_id):
+    cur_report = Report.query.get_or_404(report_id)
+    segment = Segment(offset=0.9999, info="{}", report_id=cur_report.report_id)
+    db.session.add(segment)
+    db.session.commit()
+    return convert_segments_to_json([segment])[0], 201
