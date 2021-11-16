@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_login import current_user, login_required
 
 from .fields_control import get_properties
 
@@ -15,6 +16,7 @@ api = Blueprint('core_api', __name__)
 
 
 @api.route('/report/', methods=['POST', "GET"])
+@login_required
 def get_report():
     photo_type = request.values.get('type')
     if photo_type not in ('sun', 'ultraviolet'):
@@ -26,73 +28,14 @@ def get_report():
         return {
             "message": "file is required"
         }, 400
-    report = gen_report(1, photo_type)
+    report = gen_report(current_user.user_id, photo_type)
     db.session.add(report)
     db.session.commit()
     return convert_report_to_json(report)
-    # return {
-    #     "report_id": 1,
-    #     "photo": "https://i.picsum.photos/id/1031/200/3000.jpg?hmac=c28LIVtJE8EpnqWXFYrnfeS-nPWafthF-XkQN4DHHg8",
-    #     "photo_type": photo_type,
-    #     "segments":
-    #         [
-    #             {
-    #                 "segment_id": 1,
-    #                 "percent": 0.36,
-    #                 "properties":
-    #                     [
-    #                         {
-    #                             "name": "sun_type",
-    #                             "title": "Тип",
-    #                             "value":
-    #                                 {
-    #                                     "name": "formation",
-    #                                     "title": "Порода"
-    #                                 }
-    #                         },
-    #                         {
-    #                             "name": "formation_kind",
-    #                             "title": "Вид",
-    #                             "value":
-    #                                 {
-    #                                     "name": "sandstone",
-    #                                     "title": "Песчанник"
-    #                                 }
-    #                         }
-    #
-    #                     ]
-    #             },
-    #             {
-    #                 "segment_id": 2,
-    #                 "percent": 0.64,
-    #                 "properties":
-    #                     [
-    #                         {
-    #                             "name": "sun_type",
-    #                             "title": "Тип",
-    #                             "value":
-    #                                 {
-    #                                     "name": "destruction",
-    #                                     "title": "Разрушенность"
-    #                                 }
-    #                         },
-    #                         {
-    #                             "name": "destr_kind",
-    #                             "title": "Вид",
-    #                             "value":
-    #                                 {
-    #                                     "name": "fault",
-    #                                     "title": "Разлом"
-    #                                 }
-    #                         }
-    #
-    #                     ]
-    #             }
-    #         ]
-    # }
 
 
 @api.route('/fields/', methods=['GET'])
+@login_required
 def get_fields():
     params = request.args
     return jsonify(get_properties(params))
