@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_login import login_required, current_user
 import json
 
 from backend.models.report import Report
@@ -10,6 +11,7 @@ report = Blueprint('report_api', __name__)
 
 
 @report.route('/reports/', methods=['GET'])
+@login_required
 def get_all_reports():
     rep = Report.query.all()
     answer = []
@@ -19,18 +21,21 @@ def get_all_reports():
 
 
 @report.route('/reports/<int:report_id>/', methods=['GET'])
+@login_required
 def get_reports(report_id):
     rep = Report.query.get_or_404(report_id)
     return convert_report_to_json(rep)
 
 
 @report.route('/reports/<int:report_id>/', methods=['DELETE'])
+@login_required
 def get_reports_by_id(report_id):
     db.session.query(Report).filter_by(report_id=report_id).delete()
     db.session.commit()
 
 
 @report.route('/segments/<int:segment_id>/', methods=['PUT', "PATCH"])
+@login_required
 def update_segment(segment_id):
     Segment.query.get_or_404(segment_id)
     props = {}
@@ -47,6 +52,7 @@ def update_segment(segment_id):
 
 
 @report.route('/segments/<int:segment_id>/', methods=['DELETE'])
+@login_required
 def delete_segment(segment_id):
     Segment.query.get_or_404(segment_id)
     db.session.query(Segment).filter_by(segment_id=segment_id).delete()
