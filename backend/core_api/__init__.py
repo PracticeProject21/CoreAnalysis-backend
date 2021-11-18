@@ -29,7 +29,7 @@ def get_report():
         return {
             "message": "file is required"
         }, 400
-    photo_url = save_photo(request.data)['link']
+    photo_url = save_photo(request.data)
     report = gen_report(current_user.user_id, photo_type, photo_url, 'photo_name')
     db.session.add(report)
     db.session.commit()

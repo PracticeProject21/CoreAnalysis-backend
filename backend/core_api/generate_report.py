@@ -35,7 +35,7 @@ def gen_report(user_id, ph_type, ph_url, photo_name):
             ph_type[1]: ph_val[0],
             ph_val[1]: v_val,
         }
-        segment = Segment(offset=i/n, info=json.dumps(info))
+        segment = Segment(offset="{:.3f}".format(i/n), info=json.dumps(info))
         report.segments.append(segment)
     return report
 

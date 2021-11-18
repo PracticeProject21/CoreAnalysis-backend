@@ -1,5 +1,6 @@
 import yaml
 from typing import List, Dict
+import codecs
 
 
 class InvalidFormat(Exception):
@@ -11,7 +12,7 @@ class EndOfTree(Exception):
     pass
 
 
-with open('fields.yml', 'r') as file:
+with codecs.open('fields.yml', 'r', "utf_8_sig") as file:
     config = yaml.safe_load(file)
 
 

@@ -12,5 +12,5 @@ def save_photo(byte):
     with open('temp', 'wb') as file:
         file.write(byte)
     url = client.upload_from_path('temp', config=None, anon=True)
-    print(url)
+    return url['link']
 
