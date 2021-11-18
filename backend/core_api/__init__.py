@@ -7,6 +7,7 @@ from .save_photo import save_photo
 from backend.database import db
 
 from backend.report_api.report_func import convert_report_to_json
+from backend.CoreAnalysis_ML.ML_core.main import ML_part
 
 from backend.models.report import Report
 from backend.models.segment import Segment
@@ -20,6 +21,7 @@ api = Blueprint('core_api', __name__)
 @login_required
 def get_report():
     photo_type = request.values.get('type')
+    photo_name = request.values.get('photo_name')
     if photo_type not in ('sun', 'ultraviolet'):
         return {
             "message": "type must be 'sun' or 'ultraviolet'"
