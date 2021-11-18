@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 
 from .fields_control import get_properties
+from .save_photo import save_photo
 
 from backend.database import db
 
@@ -28,7 +29,8 @@ def get_report():
         return {
             "message": "file is required"
         }, 400
-    report = gen_report(current_user.user_id, photo_type)
+    photo_url = save_photo(request.data)['link']
+    report = gen_report(current_user.user_id, photo_type, photo_url, 'photo_name')
     db.session.add(report)
     db.session.commit()
     return convert_report_to_json(report)

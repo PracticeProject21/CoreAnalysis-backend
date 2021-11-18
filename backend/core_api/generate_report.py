@@ -21,10 +21,10 @@ val_val = {
 }
 
 
-def gen_report(user_id, ph_type):
+def gen_report(user_id, ph_type, ph_url, photo_name):
     ph_type = (ph_type, photo_type[ph_type])
-    report = Report(photo_name='0003251d_768a_457d_8465_06198b4094d3',
-                    photo_url='sdsdsdsdsdsdsd',
+    report = Report(photo_name=photo_name,
+                    photo_url=ph_url,
                     photo_type=ph_type[0], user_id=user_id)
     n = random.randint(3,10)
     for i in range(random.randint(3,10)):
