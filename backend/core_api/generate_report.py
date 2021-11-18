@@ -58,6 +58,16 @@ def gen_report(user_id, ph_type, ph_url, photo_name):
 
 def convert_segment_info_to_report(photo_type: str, segments: List[Tuple[float, str]], photo_name: str, photo_url: str) -> Report:
     report = Report(user_id=current_user.user_id, photo_type=photo_type, photo_url=photo_url, photo_name=photo_name)
+    for s in segments:
+        properties = {}
+        if photo_type == 'ultraviolet':
+            properties.update(uf[s[1]])
+        else:
+            properties.update(sun[s[1]])
+        info = json.dumps(properties)
+        segment = Segment(offset=s[0], info=info)
+        report.segments.append(segment)
+    return report
 
 
 if __name__ == '__main__':
