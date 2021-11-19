@@ -29,7 +29,7 @@ def get_report():
         return {
             "message": "file is required"
         }, 400
-    photo_url = save_photo(request.data)
+    photo_url = "https://i.picsum.photos/id/774/200/1000.jpg?hmac=aABAO2F5ShHSCjqkihBdd0nM6yQrvrqPdPskK0KDg3Q" #save_photo(request.data)
     report = gen_report(current_user.user_id, photo_type, photo_url, 'photo_name')
     db.session.add(report)
     db.session.commit()
