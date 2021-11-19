@@ -27,7 +27,7 @@ def gen_report(user_id, ph_type, ph_url, photo_name):
                     photo_url=ph_url,
                     photo_type=ph_type[0], user_id=user_id)
     n = random.randint(3,10)
-    for i in range(random.randint(3,10)):
+    for i in range(n):
         ph_val = random.choice(photo_val[ph_type[1]])
         v_val = random.choice(val_val[ph_val[1]])
         info = {
