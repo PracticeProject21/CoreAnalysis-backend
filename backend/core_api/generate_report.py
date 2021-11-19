@@ -21,10 +21,10 @@ val_val = {
 }
 
 
-def gen_report(user_id, ph_type):
+def gen_report(user_id, ph_type, ph_url, photo_name):
     ph_type = (ph_type, photo_type[ph_type])
-    report = Report(photo_name='0003251d_768a_457d_8465_06198b4094d3',
-                    photo_url='https://i.picsum.photos/id/240/200/1000.jpg?hmac=ptyFF2N6tMTLdjUc497Svv_atTmY_xPRY5qyYkJeXoA',
+    report = Report(photo_name=photo_name,
+                    photo_url=ph_url,
                     photo_type=ph_type[0], user_id=user_id)
     n = random.randint(3,10)
     for i in range(random.randint(3,10)):
@@ -35,7 +35,7 @@ def gen_report(user_id, ph_type):
             ph_type[1]: ph_val[0],
             ph_val[1]: v_val,
         }
-        segment = Segment(offset=i/n, info=json.dumps(info))
+        segment = Segment(offset="{:.3f}".format(i/n), info=json.dumps(info))
         report.segments.append(segment)
     return report
 
