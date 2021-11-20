@@ -33,8 +33,7 @@ def get_report():
         return {
             "message": "file is required"
         }, 400
-    # photo_url = save_photo(request.data)
-    photo_url = 'url'
+    photo_url = save_photo(request.data)
     # report = gen_report(current_user.user_id, photo_type, photo_url, 'photo_name')
     segments = ML_part(Image.open(io.BytesIO(request.data)), photo_type)
     report = convert_segment_info_to_report(photo_type, segments, photo_name=photo_name, photo_url=photo_url)
