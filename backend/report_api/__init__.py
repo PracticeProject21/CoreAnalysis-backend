@@ -1,8 +1,11 @@
-from flask import Blueprint, jsonify, request
+import os
+
+from flask import Blueprint, jsonify, request, send_from_directory
 from flask_login import login_required, current_user
 import json
 
 from backend.models.report import Report
+from backend.report_api.generate_report_file import generate_file
 from .report_func import convert_report_to_json, convert_segments_to_json
 from backend.database import db
 from ..models.segment import Segment
@@ -27,9 +30,17 @@ def get_reports(report_id):
     return convert_report_to_json(rep)
 
 
+@report.route('/reports/<int:report_id>/file', methods=['GET'])
+@login_required
+def get_report_file(report_id):
+    rep = Report.query.get_or_404(report_id)
+    filename = generate_file(convert_report_to_json(rep))
+    return send_from_directory(os.getcwd(), filename)
+
+
 @report.route('/reports/<int:report_id>/', methods=['DELETE'])
 @login_required
-def get_reports_by_id(report_id):
+def get_reports_file_by_id(report_id):
     db.session.query(Report).filter_by(report_id=report_id).delete()
     db.session.commit()
 
