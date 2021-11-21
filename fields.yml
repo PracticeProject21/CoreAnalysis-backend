@@ -2,7 +2,7 @@
   title: Тип фотографии
   values:
     - name: ultraviolet
-      title: Ультрофиолет
+      title: Ультрафиолет
       nested:
         - name: uf_type
           title: Тип

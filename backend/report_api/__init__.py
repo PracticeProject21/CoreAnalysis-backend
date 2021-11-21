@@ -30,7 +30,7 @@ def get_reports(report_id):
     return convert_report_to_json(rep)
 
 
-@report.route('/reports/<int:report_id>/file', methods=['GET'])
+@report.route('/reports/<int:report_id>/file/', methods=['GET'])
 @login_required
 def get_report_file(report_id):
     rep = Report.query.get_or_404(report_id)
@@ -51,10 +51,8 @@ def update_segment(segment_id):
     Segment.query.get_or_404(segment_id)
     props = {}
     data = json.loads(request.data.decode())
-    if data.get('offset'):
-        props['offset'] = data.get('offset')
-    if data.get('properties'):
-        props['info'] = json.dumps(data.get('properties'))
+    props['offset'] = data.get('offset') or 0
+    props['info'] = json.dumps(data.get('properties') or {})
     print(props)
 
     db.session.query(Segment).filter_by(segment_id=segment_id).update(props)
