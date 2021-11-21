@@ -17,10 +17,10 @@ def generate_file(structure: dict) -> str:
     sheet['A5'] = "Номер сегмента"
     sheet['B5'] = "Расстояние от начала сегмента"
     sheet['C5'] = "Расстояние до конца сегмента"
-    sheet['D5'] = "Имя"
-    sheet['E5'] = "Значение"
-    sheet['F5'] = "Название свойства"
-    sheet['G5'] = "Значение свойства"
+    # sheet[] = "Имя"
+    sheet['D5'] = "Значение"
+    # sheet[] = "Название свойства"
+    sheet['E5'] = "Значение свойства"
 
     img_data = requests.get(structure['photo_url']).content
     with open('image.jpg', 'wb') as handler:
@@ -38,10 +38,10 @@ def generate_file(structure: dict) -> str:
             sheet[row][0].value = segment["segment_id"]
             sheet[row][1].value = segment["offset"]
             sheet[row][2].value = segment["len"]
-            sheet[row][3].value = property["name"]
-            sheet[row][4].value = property["title"]
-            sheet[row][5].value = property["value"]["name"]
-            sheet[row][6].value = property["value"]["title"]
+            # sheet[row][3].value = property["name"]
+            sheet[row][3].value = property["title"]
+            # sheet[row][5].value = property["value"]["name"]
+            sheet[row][4].value = property["value"]["title"]
             row += 1
 
     book.save("report.xlsx")
