@@ -69,7 +69,7 @@ def delete_segment(segment_id):
     return '', 204
 
 
-@report.route('/reports/<int:report_id>/add_segment', methods=['POST'])
+@report.route('/reports/<int:report_id>/add_segment/', methods=['POST'])
 @login_required
 def create_segment(report_id):
     cur_report = Report.query.get_or_404(report_id)
