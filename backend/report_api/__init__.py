@@ -16,7 +16,12 @@ report = Blueprint('report_api', __name__)
 @report.route('/reports/', methods=['GET'])
 @login_required
 def get_all_reports():
-    rep = Report.query.all()
+    rep = Report.query
+    if request.values.get('my'):
+        if request.values['my'].lower() == 'true':
+            rep = rep.filter_by(user_id=current_user.user_id)
+
+    rep = rep.all()
     answer = []
     for r in rep:
         answer.append(convert_report_to_json(r))
@@ -41,14 +46,20 @@ def get_report_file(report_id):
 @report.route('/reports/<int:report_id>/', methods=['DELETE'])
 @login_required
 def get_reports_file_by_id(report_id):
+    report = Report.query.get_or_404(report_id)
+    if report.user_id != current_user.user_id:
+        return {'message': "Permission denied!"}, 403
     db.session.query(Report).filter_by(report_id=report_id).delete()
     db.session.commit()
+    return '', 204
 
 
 @report.route('/segments/<int:segment_id>/', methods=['PUT', "PATCH"])
 @login_required
 def update_segment(segment_id):
-    Segment.query.get_or_404(segment_id)
+    s = Segment.query.get_or_404(segment_id)
+    if s.report.user_id != current_user.user_id:
+        return {'message': "Permission denied!"}, 403
     props = {}
     data = json.loads(request.data.decode())
     props['offset'] = data.get('offset') or 0
@@ -63,7 +74,9 @@ def update_segment(segment_id):
 @report.route('/segments/<int:segment_id>/', methods=['DELETE'])
 @login_required
 def delete_segment(segment_id):
-    Segment.query.get_or_404(segment_id)
+    s = Segment.query.get_or_404(segment_id)
+    if s.report.user_id != current_user.user_id:
+        return {'message': "Permission denied!"}, 403
     db.session.query(Segment).filter_by(segment_id=segment_id).delete()
     db.session.commit()
     return '', 204
@@ -73,6 +86,8 @@ def delete_segment(segment_id):
 @login_required
 def create_segment(report_id):
     cur_report = Report.query.get_or_404(report_id)
+    if cur_report.user_id != current_user.user_id:
+        return {'message': "Permission denied!"}, 403
     segment = Segment(offset=0.9999, info="{}", report_id=cur_report.report_id)
     db.session.add(segment)
     db.session.commit()

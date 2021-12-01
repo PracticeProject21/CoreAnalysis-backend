@@ -102,5 +102,6 @@ def convert_report_to_json(report: Report) -> Dict:
         'photo_type': report.photo_type,
         'photo_name': report.photo_name,
         'photo_url': report.photo_url,
+        'user_id': report.user_id,
         'segments': convert_segments_to_json(sorted(report.segments, key=lambda x: float(x.offset)))
     }
