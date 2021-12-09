@@ -9,7 +9,7 @@ import io
 from PIL import Image
 
 from backend.report_api.report_func import convert_report_to_json
-# from backend.CoreAnalysis_ML.ML_core.main import ML_part
+from backend.CoreAnalysis_ML.ML_core.main import ML_part
 #
 # from backend.models.report import Report
 # from backend.models.segment import Segment
@@ -34,9 +34,9 @@ def get_report():
             "message": "file is required"
         }, 400
     photo_url = save_photo(request.data)
-    report = gen_report(current_user.user_id, photo_type, photo_url, photo_name)
-    # segments = ML_part(Image.open(io.BytesIO(request.data)), photo_type)
-    # report = convert_segment_info_to_report(photo_type, segments, photo_name=photo_name, photo_url=photo_url)
+    # report = gen_report(current_user.user_id, photo_type, photo_url, photo_name)
+    segments = ML_part(Image.open(io.BytesIO(request.data)), photo_type)
+    report = convert_segment_info_to_report(photo_type, segments, photo_name=photo_name, photo_url=photo_url)
     db.session.add(report)
     db.session.commit()
     return convert_report_to_json(report)
