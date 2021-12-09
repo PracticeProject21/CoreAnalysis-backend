@@ -2,7 +2,7 @@
   title: Тип фотографии
   values:
     - name: ultraviolet
-      title: Ультрофиолет
+      title: Ультрафиолет
       nested:
         - name: uf_type
           title: Тип
@@ -65,46 +65,281 @@
                       - name: composition
                         title: Состав
                         values:
-                          - TOTOTOTOTOTTODODODODODODOD
+                          - name: pes_alev_arg
+                            title: Песчаник & Алевролит & Аргиллит
+                          - name: pes_alev
+                            title: Песчаник & Алевролит
+                          - name: pes_arg
+                            title: Песчаник & Аргиллит
+                          - name: alev_arg
+                            title: Алевролит & Аргиллит
                   - name: sandstone
                     title: Песчанник
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: clay_sandstone
                     title: Песчанник глинистый
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: siltstone
                     title: Алевролит
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: clay_silstone
                     title: Алевролит глинистый
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: argillite
                     title: Аргиллит
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: clay
                     title: Глина
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: argillite_clay
                     title: Глина аргеллитообразная
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: carbon_argellite
                     title: Аргиллит углистый
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: Coal
                     title: Уголь
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: limestone
                     title: Известняк
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: carbonate_rock
                     title: Карбонатная порода
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: dolomite
                     title: Доломит
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: conglomerate
                     title: Конгломерат
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: foundation
                     title: Фундамент
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: gravel
                     title: Гравелит
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: breccia
                     title: Брекчия
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: clay_silicon_rock
                     title: Глинисто-кремнивая порода
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: silicon_clay_rock
                     title: Кремнисто-глинистая порода
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: silicon_rock
                     title: Кремнистая порода
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: sand
                     title: Песок
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
                   - name: aleurite
                     title: Алеврит
+                    nested:
+                      - name: color
+                        title: Цвет
+                        values:
+                          - name: grey
+                            title: Серый
+                          - name: bur
+                            title: Бурый
+                          - name: grey-brown
+                            title: Cеро-коричневый
+                - name: integrity
+                  title: Целостность
+                  values:
+                    - name: not_destroy
+                      title: Не разрушен
+                    - name: destroy
+                      title: разрушен
+                    - name: some_destro
+                      title: Частично разрушен
+                - name: strength
+                  title: Крепость
+                  values:
+                    - name: cemented
+                      title: Сцементированный
+                    - name: lesscemented
+                      title: Слабосцементированный
+                    - name: soft
+                      title: Рыхлый
